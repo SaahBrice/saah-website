@@ -34,12 +34,17 @@
             theme: {
                 extend: {
                     colors: {
-                        'electric-yellow': '#F5F500',
+                        'electric-yellow': '#705EF3',
+                        'ey-dark': '#5A48D4',
+                        'ey-light': '#9B8FFA',
                         'saah-black': '#0A0A0A',
                         'saah-dark': '#111111',
+                        'saah-white': '#FAFAFA',
+                        'saah-gray': '#F3F3F3',
+                        'saah-muted': '#6B7280',
                     },
                     fontFamily: {
-                        sans: ['Nunito', 'system-ui', 'sans-serif'],
+                        sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
                         mono: ['JetBrains Mono', 'monospace'],
                     },
                 },
@@ -53,16 +58,16 @@
     <!-- HTMX -->
     <script src="https://unpkg.com/htmx.org@1.9.12"></script>
 
-    <!-- Google Fonts — Nunito (rounded) + JetBrains Mono -->
+    <!-- Google Fonts — Plus Jakarta Sans (rounded, premium) + JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/landing.css' %}">
     {% block extra_css %}{% endblock %}
 </head>
-<body class="bg-saah-black text-white font-sans antialiased">
+<body class="bg-white text-saah-black font-sans antialiased">
     {% block content %}{% endblock %}
     {% block extra_js %}{% endblock %}
 </body>

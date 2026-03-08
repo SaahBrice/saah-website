@@ -17,6 +17,7 @@ def landing_page(request):
 def blog_detail_page(request, pk):
     """Render a single blog post with OG metadata for social sharing."""
     blog = get_object_or_404(Blog, pk=pk)
+    related_blogs = Blog.objects.exclude(pk=pk)[:3]
     og = get_og_metadata(
         request,
         title=blog.title,
@@ -24,4 +25,8 @@ def blog_detail_page(request, pk):
         image_url=blog.proxied_thumbnail_url,
         og_type="article",
     )
-    return render(request, "blog/detail.html", {"blog": blog, "og": og})
+    return render(request, "blog/detail.html", {
+        "blog": blog,
+        "og": og,
+        "related_blogs": related_blogs,
+    })

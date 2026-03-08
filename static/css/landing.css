@@ -1,105 +1,180 @@
 /* ===========================
-   SAAH Landing Page Styles
-   Theme: Black, White, Electric Yellow (#F5F500)
+   SAAH Landing Page — Light Theme
+   Theme: White, Black, Purple (#705EF3)
    =========================== */
 
-/* --- Background grid --- */
+/* --- Background pattern (subtle dots) --- */
 #bg-grid {
-    background-image:
-        linear-gradient(rgba(245, 245, 0, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(245, 245, 0, 0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-    animation: gridShift 20s linear infinite;
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    background-size: 30px 30px;
+    animation: gridDrift 30s linear infinite;
 }
 
-@keyframes gridShift {
-    0% { background-position: 0 0; }
-    100% { background-position: 60px 60px; }
+@keyframes gridDrift {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 30px 30px;
+    }
 }
 
-/* --- Countdown units --- */
+/* --- Countdown cards --- */
 .countdown-unit {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 64px;
+}
+
+.countdown-card {
+    background: #f5f5f5;
+    border-radius: 14px;
+    padding: 14px 18px;
+    min-width: 72px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.3s ease;
+}
+
+.countdown-card:hover {
+    box-shadow: 0 4px 20px rgba(112, 94, 243, 0.12);
 }
 
 .countdown-number {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     font-weight: 700;
     line-height: 1;
-    color: #F5F500;
-    text-shadow: 0 0 20px rgba(245, 245, 0, 0.3);
+    color: #0A0A0A;
+    display: block;
+    text-align: center;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.15s ease;
+}
+
+.countdown-seconds {
+    animation: tickPulse 1s ease-in-out infinite;
+}
+
+@keyframes tickPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.65;
+    }
 }
 
 .countdown-label {
     font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 0.15em;
-    color: rgba(255, 255, 255, 0.35);
-    margin-top: 6px;
-    font-family: 'Inter', sans-serif;
+    color: rgba(107, 114, 128, 0.7);
+    margin-top: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 500;
 }
 
 @media (max-width: 480px) {
-    .countdown-number { font-size: 1.75rem; }
-    .countdown-unit { min-width: 48px; }
+    .countdown-number {
+        font-size: 1.6rem;
+    }
+
+    .countdown-card {
+        min-width: 56px;
+        padding: 10px 12px;
+        border-radius: 10px;
+    }
 }
 
-/* --- Animations --- */
+/* --- Logo float --- */
 .animate-float {
     animation: float 6s ease-in-out infinite;
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
+/* --- Soft background pulses --- */
 .animate-pulse-slow {
-    animation: pulse 8s ease-in-out infinite;
+    animation: softPulse 10s ease-in-out infinite;
 }
 
 .animate-pulse-slower {
-    animation: pulse 12s ease-in-out infinite;
+    animation: softPulse 14s ease-in-out infinite;
 }
 
-@keyframes pulse {
-    0%, 100% { opacity: 0.3; transform: scale(1); }
-    50% { opacity: 0.6; transform: scale(1.1); }
+@keyframes softPulse {
+
+    0%,
+    100% {
+        opacity: 0.4;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.7;
+        transform: scale(1.08);
+    }
 }
 
-/* Staggered fade-in-up */
+/* --- Brand text reveal --- */
+.reveal-text {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    animation: revealText 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes revealText {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* --- Staggered fade-in-up --- */
 .animate-fade-in-up {
     opacity: 0;
-    transform: translateY(30px);
-    animation: fadeInUp 0.8s ease-out forwards;
+    transform: translateY(24px);
+    animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-fade-in-up-delay {
     opacity: 0;
-    transform: translateY(30px);
-    animation: fadeInUp 0.8s ease-out 0.2s forwards;
+    transform: translateY(24px);
+    animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
 }
 
 .animate-fade-in-up-delay-2 {
     opacity: 0;
-    transform: translateY(30px);
-    animation: fadeInUp 0.8s ease-out 0.4s forwards;
+    transform: translateY(24px);
+    animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
 }
 
 .animate-fade-in-up-delay-3 {
     opacity: 0;
-    transform: translateY(30px);
-    animation: fadeInUp 0.8s ease-out 0.6s forwards;
+    transform: translateY(24px);
+    animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards;
 }
 
 .animate-fade-in-up-delay-4 {
     opacity: 0;
-    transform: translateY(30px);
-    animation: fadeInUp 0.8s ease-out 0.8s forwards;
+    transform: translateY(24px);
+    animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
 }
 
 @keyframes fadeInUp {
@@ -109,26 +184,62 @@
     }
 }
 
-/* --- Scrollbar --- */
+/* --- Scroll-reveal for blog cards --- */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+}
+
+.scroll-reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Bounce arrow --- */
+.animate-bounce-slow {
+    animation: bounceSlow 2s ease-in-out infinite;
+}
+
+@keyframes bounceSlow {
+
+    0%,
+    100% {
+        transform: translateX(-50%) translateY(0);
+    }
+
+    50% {
+        transform: translateX(-50%) translateY(6px);
+    }
+}
+
+/* --- Scrollbar (light) --- */
 ::-webkit-scrollbar {
     width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #0A0A0A;
+    background: #fafafa;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(245, 245, 0, 0.2);
+    background: rgba(0, 0, 0, 0.12);
     border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(245, 245, 0, 0.4);
+    background: rgba(0, 0, 0, 0.2);
 }
 
-/* --- Selection color --- */
+/* --- Selection --- */
 ::selection {
-    background: rgba(245, 245, 0, 0.3);
-    color: white;
+    background: rgba(112, 94, 243, 0.2);
+    color: #0A0A0A;
+}
+
+/* --- Blog card stagger animation --- */
+.blog-card {
+    will-change: transform, opacity;
 }

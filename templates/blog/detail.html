@@ -11,16 +11,16 @@
 <article class="relative min-h-screen pb-28" x-data="blogDetail({{ blog.id }}, {{ blog.real_likes }}, {{ blog.total_likes }})">
 
     <!-- Back button -->
-    <div class="sticky top-0 z-30 bg-saah-black/80 backdrop-blur-md border-b border-white/5">
+    <div class="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-black/5">
         <div class="max-w-3xl mx-auto px-4 py-3 flex items-center gap-3">
-            <a href="{% url 'landing:home' %}" class="text-white/50 hover:text-electric-yellow transition-colors duration-200 flex items-center gap-2 text-sm">
+            <a href="{% url 'landing:home' %}" class="text-saah-muted hover:text-saah-black transition-colors duration-200 flex items-center gap-2 text-sm">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
                 </svg>
                 Back
             </a>
-            <span class="text-white/20">|</span>
-            <span class="text-white/30 text-sm truncate">{{ blog.title }}</span>
+            <span class="text-black/10">|</span>
+            <span class="text-saah-muted text-sm truncate">{{ blog.title }}</span>
         </div>
     </div>
 
@@ -32,7 +32,7 @@
             alt="{{ blog.title }}"
             class="w-full h-full object-cover"
         >
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-saah-black"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white"></div>
     </div>
     {% endif %}
 
@@ -41,18 +41,18 @@
 
         <!-- Header -->
         <header class="{% if blog.thumbnail_url %}-mt-16 relative z-10{% else %}mt-12{% endif %} mb-8">
-            <p class="text-electric-yellow/60 text-xs font-mono uppercase tracking-widest mb-3">
+            <p class="text-saah-muted text-xs font-mono uppercase tracking-widest mb-3">
                 {{ blog.publish_date|date:"F d, Y" }}
             </p>
-            <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight mb-3">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-saah-black leading-tight mb-3">
                 {{ blog.title }}
             </h1>
             {% if blog.subtitle %}
-            <p class="text-lg sm:text-xl text-white/60 leading-relaxed">
+            <p class="text-lg sm:text-xl text-saah-muted leading-relaxed">
                 {{ blog.subtitle }}
             </p>
             {% endif %}
-            <div class="mt-4 flex items-center gap-4 text-white/30 text-sm">
+            <div class="mt-4 flex items-center gap-4 text-saah-muted/60 text-sm">
                 <span class="flex items-center gap-1.5">
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
@@ -67,8 +67,8 @@
 
         <!-- Audio player -->
         {% if blog.audio_url %}
-        <div class="mb-10 bg-saah-dark rounded-xl p-4 border border-white/5">
-            <p class="text-white/40 text-xs font-mono uppercase tracking-widest mb-3">🎧 Listen</p>
+        <div class="mb-10 bg-saah-gray rounded-xl p-4 border border-black/5">
+            <p class="text-saah-muted text-xs font-mono uppercase tracking-widest mb-3">🎧 Listen</p>
             <audio controls class="w-full audio-player" preload="metadata">
                 <source src="{{ blog.proxied_audio_url }}" type="audio/mpeg">
                 Your browser does not support audio.
@@ -80,19 +80,62 @@
         <div class="blog-content prose-custom mb-16">
             {{ blog.content|safe }}
         </div>
+
+        <!-- Related Articles -->
+        {% if related_blogs %}
+        <div class="mb-20 pt-10 border-t border-black/5">
+            <h3 class="text-xl font-bold text-saah-black mb-6">Related Articles</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                {% for related in related_blogs %}
+                <a
+                    href="{% url 'landing:blog-detail-page' pk=related.id %}"
+                    class="group flex flex-col bg-saah-gray rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 border border-black/5"
+                >
+                    <div class="h-32 overflow-hidden bg-white">
+                        {% if related.thumbnail_url %}
+                        <img
+                            src="{{ related.proxied_thumbnail_url }}"
+                            alt="{{ related.title }}"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            loading="lazy"
+                        >
+                        {% else %}
+                        <div class="w-full h-full flex items-center justify-center">
+                            <span class="text-saah-black/10 text-4xl font-extrabold">S</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="p-4">
+                        <p class="text-saah-muted text-xs font-mono uppercase tracking-wider mb-1">
+                            {{ related.publish_date|date:"M d, Y" }}
+                        </p>
+                        <h4 class="text-sm font-bold text-saah-black leading-snug group-hover:text-electric-yellow transition-colors duration-200">
+                            {{ related.title }}
+                        </h4>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
     </div>
 
     <!-- Fixed bottom bar — Like + Share -->
-    <div class="fixed bottom-0 left-0 right-0 z-40 bg-saah-black/90 backdrop-blur-md border-t border-white/5">
+    <div class="fixed bottom-0 left-0 right-0 z-40 bg-white/90 backdrop-blur-md border-t border-black/5">
         <div class="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
 
             <!-- Like button -->
             <button
                 @click="like()"
+                x-ref="likeBtn"
                 class="flex items-center gap-2 px-5 py-2.5 rounded-full transition-all duration-300"
-                :class="liked ? 'bg-electric-yellow text-saah-black' : 'bg-white/10 text-white hover:bg-white/15'"
+                :class="[
+                    liked ? 'bg-electric-yellow text-white shadow-lg' : 'bg-saah-gray text-saah-black hover:bg-saah-black/5 border border-black/5',
+                    animClass
+                ]"
             >
-                <svg class="w-5 h-5 transition-transform duration-300" :class="liked && 'scale-110'" fill="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                 </svg>
                 <span class="text-sm font-bold" x-text="totalLikes">{{ blog.total_likes }}</span>
@@ -100,13 +143,13 @@
 
             <!-- Share buttons -->
             <div class="flex items-center gap-2">
-                <span class="text-white/30 text-xs mr-1 hidden sm:inline">Share</span>
+                <span class="text-saah-muted text-xs mr-1 hidden sm:inline">Share</span>
 
                 <!-- WhatsApp -->
                 <a
                     :href="'https://api.whatsapp.com/send?text=' + encodeURIComponent(document.title + ' ' + window.location.href)"
                     target="_blank"
-                    class="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-[#25D366] text-white transition-all duration-300"
+                    class="w-10 h-10 flex items-center justify-center rounded-full bg-saah-gray text-saah-black/60 hover:bg-[#25D366] hover:text-white transition-all duration-300 border border-black/5"
                     title="Share on WhatsApp"
                 >
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -118,7 +161,7 @@
                 <a
                     :href="'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href)"
                     target="_blank"
-                    class="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-[#1877F2] text-white transition-all duration-300"
+                    class="w-10 h-10 flex items-center justify-center rounded-full bg-saah-gray text-saah-black/60 hover:bg-[#1877F2] hover:text-white transition-all duration-300 border border-black/5"
                     title="Share on Facebook"
                 >
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -130,7 +173,7 @@
                 <a
                     :href="'https://twitter.com/intent/tweet?text=' + encodeURIComponent(document.title) + '&url=' + encodeURIComponent(window.location.href)"
                     target="_blank"
-                    class="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-all duration-300"
+                    class="w-10 h-10 flex items-center justify-center rounded-full bg-saah-gray text-saah-black/60 hover:bg-saah-black hover:text-white transition-all duration-300 border border-black/5"
                     title="Share on X"
                 >
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -141,7 +184,7 @@
                 <!-- Copy link -->
                 <button
                     @click="copyLink()"
-                    class="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-electric-yellow hover:text-saah-black text-white transition-all duration-300"
+                    class="w-10 h-10 flex items-center justify-center rounded-full bg-saah-gray text-saah-black/60 hover:bg-electric-yellow hover:text-saah-black transition-all duration-300 border border-black/5"
                     title="Copy link"
                 >
                     <svg x-show="!copied" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -154,6 +197,13 @@
             </div>
         </div>
     </div>
+
+    <!-- Like toast notification -->
+    <div
+        class="like-toast"
+        :class="toastVisible && 'show'"
+        x-text="toastMsg"
+    ></div>
 
 </article>
 {% endblock %}
