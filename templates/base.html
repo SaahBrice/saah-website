@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO -->
+    <title>{% block title %}SAAH{% endblock %}</title>
+    <meta name="description" content="{{ og.description|default:'A space built for serious students and workers.' }}">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{ og.title|default:'SAAH' }}">
+    <meta property="og:description" content="{{ og.description|default:'A space built for serious students and workers.' }}">
+    <meta property="og:type" content="{{ og.type|default:'website' }}">
+    <meta property="og:url" content="{{ og.url }}">
+    <meta property="og:site_name" content="{{ og.site_name|default:'SAAH' }}">
+    {% if og.image %}
+    <meta property="og:image" content="{{ og.image }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    {% endif %}
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ og.title|default:'SAAH' }}">
+    <meta name="twitter:description" content="{{ og.description|default:'A space built for serious students and workers.' }}">
+    {% if og.image %}<meta name="twitter:image" content="{{ og.image }}">{% endif %}
+
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'electric-yellow': '#F5F500',
+                        'saah-black': '#0A0A0A',
+                        'saah-dark': '#111111',
+                    },
+                    fontFamily: {
+                        sans: ['Nunito', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                },
+            },
+        }
+    </script>
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- HTMX -->
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+
+    <!-- Google Fonts — Nunito (rounded) + JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="bg-saah-black text-white font-sans antialiased">
+    {% block content %}{% endblock %}
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

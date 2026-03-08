@@ -1,0 +1,134 @@
+/* ===========================
+   SAAH Landing Page Styles
+   Theme: Black, White, Electric Yellow (#F5F500)
+   =========================== */
+
+/* --- Background grid --- */
+#bg-grid {
+    background-image:
+        linear-gradient(rgba(245, 245, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245, 245, 0, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridShift 20s linear infinite;
+}
+
+@keyframes gridShift {
+    0% { background-position: 0 0; }
+    100% { background-position: 60px 60px; }
+}
+
+/* --- Countdown units --- */
+.countdown-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 64px;
+}
+
+.countdown-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #F5F500;
+    text-shadow: 0 0 20px rgba(245, 245, 0, 0.3);
+}
+
+.countdown-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.35);
+    margin-top: 6px;
+    font-family: 'Inter', sans-serif;
+}
+
+@media (max-width: 480px) {
+    .countdown-number { font-size: 1.75rem; }
+    .countdown-unit { min-width: 48px; }
+}
+
+/* --- Animations --- */
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+
+.animate-pulse-slow {
+    animation: pulse 8s ease-in-out infinite;
+}
+
+.animate-pulse-slower {
+    animation: pulse 12s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.1); }
+}
+
+/* Staggered fade-in-up */
+.animate-fade-in-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-fade-in-up-delay {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease-out 0.2s forwards;
+}
+
+.animate-fade-in-up-delay-2 {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease-out 0.4s forwards;
+}
+
+.animate-fade-in-up-delay-3 {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease-out 0.6s forwards;
+}
+
+.animate-fade-in-up-delay-4 {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease-out 0.8s forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0A0A0A;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(245, 245, 0, 0.2);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(245, 245, 0, 0.4);
+}
+
+/* --- Selection color --- */
+::selection {
+    background: rgba(245, 245, 0, 0.3);
+    color: white;
+}
